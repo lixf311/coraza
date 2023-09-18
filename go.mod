@@ -1,6 +1,6 @@
 module github.com/lixf311/coraza/v3
 
-go 1.18
+go 1.19
 
 // Testing dependencies:
 // - go-mockdns
