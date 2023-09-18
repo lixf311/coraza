@@ -775,8 +775,16 @@ func (tx *Transaction) ProcessRequestHeaders() *types.Interruption {
 		tx.debugLogger.Error().Msg("Calling ProcessRequestHeaders but there is a preexisting interruption")
 		return tx.interruption
 	}
+	rules := tx.WAF.Rules.rules
+	for _, rule := range rules {
+		group := NewRuleGroup()
+		group.Add(&rule)
+		if group.Eval(types.PhaseRequestHeaders, tx) {
+			return tx.interruption
+		}
+	}
 
-	tx.WAF.Rules.Eval(types.PhaseRequestHeaders, tx)
+	//tx.WAF.Rules.Eval(types.PhaseRequestHeaders, tx)
 	return tx.interruption
 }
 
