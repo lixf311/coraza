@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/corazawaf/coraza/v3/internal/corazawaf"
+	"github.com/lixf311/coraza/v3/internal/corazawaf"
 )
 
 func TestInvalidRule(t *testing.T) {

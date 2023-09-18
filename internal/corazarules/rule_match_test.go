@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/corazawaf/coraza/v3/internal/variables"
-	"github.com/corazawaf/coraza/v3/types"
+	"github.com/lixf311/coraza/v3/internal/variables"
+	"github.com/lixf311/coraza/v3/types"
 )
 
 func TestErrorLogMessagesSizesNoExtraRuleDetails(t *testing.T) {

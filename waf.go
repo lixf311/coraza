@@ -6,9 +6,9 @@ package coraza
 import (
 	"fmt"
 
-	"github.com/corazawaf/coraza/v3/internal/corazawaf"
-	"github.com/corazawaf/coraza/v3/internal/seclang"
-	"github.com/corazawaf/coraza/v3/types"
+	"github.com/lixf311/coraza/v3/internal/corazawaf"
+	"github.com/lixf311/coraza/v3/internal/seclang"
+	"github.com/lixf311/coraza/v3/types"
 )
 
 // WAF instance is used to store configurations and rules

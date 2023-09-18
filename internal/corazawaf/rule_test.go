@@ -8,11 +8,11 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/corazawaf/coraza/v3/experimental/plugins/macro"
-	"github.com/corazawaf/coraza/v3/experimental/plugins/plugintypes"
-	"github.com/corazawaf/coraza/v3/internal/corazarules"
-	"github.com/corazawaf/coraza/v3/types"
-	"github.com/corazawaf/coraza/v3/types/variables"
+	"github.com/lixf311/coraza/v3/experimental/plugins/macro"
+	"github.com/lixf311/coraza/v3/experimental/plugins/plugintypes"
+	"github.com/lixf311/coraza/v3/internal/corazarules"
+	"github.com/lixf311/coraza/v3/types"
+	"github.com/lixf311/coraza/v3/types/variables"
 )
 
 func TestMatchEvaluate(t *testing.T) {

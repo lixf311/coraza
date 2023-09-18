@@ -8,8 +8,8 @@ package operators
 import (
 	"strconv"
 
-	"github.com/corazawaf/coraza/v3/experimental/plugins/macro"
-	"github.com/corazawaf/coraza/v3/experimental/plugins/plugintypes"
+	"github.com/lixf311/coraza/v3/experimental/plugins/macro"
+	"github.com/lixf311/coraza/v3/experimental/plugins/plugintypes"
 )
 
 type gt struct {

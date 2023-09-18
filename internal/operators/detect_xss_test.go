@@ -6,7 +6,7 @@ package operators
 import (
 	"testing"
 
-	"github.com/corazawaf/coraza/v3/internal/corazawaf"
+	"github.com/lixf311/coraza/v3/internal/corazawaf"
 )
 
 var xssTests = []string{

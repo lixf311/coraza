@@ -13,7 +13,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/corazawaf/coraza/v3/types"
+	"github.com/lixf311/coraza/v3/types"
 )
 
 // rwInterceptor intercepts the ResponseWriter, so it can track response size

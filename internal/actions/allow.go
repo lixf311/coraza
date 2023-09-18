@@ -6,9 +6,9 @@ package actions
 import (
 	"fmt"
 
-	"github.com/corazawaf/coraza/v3/experimental/plugins/plugintypes"
-	"github.com/corazawaf/coraza/v3/internal/corazatypes"
-	"github.com/corazawaf/coraza/v3/internal/corazawaf"
+	"github.com/lixf311/coraza/v3/experimental/plugins/plugintypes"
+	"github.com/lixf311/coraza/v3/internal/corazatypes"
+	"github.com/lixf311/coraza/v3/internal/corazawaf"
 )
 
 // Action Group: Disruptive
