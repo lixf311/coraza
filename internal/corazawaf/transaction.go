@@ -965,7 +965,16 @@ func (tx *Transaction) ProcessRequestBody() (*types.Interruption, error) {
 
 	// we won't process empty request bodies or disabled RequestBodyAccess
 	if !tx.RequestBodyAccess || tx.requestBodyBuffer.length == 0 {
-		tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+		rules := tx.WAF.Rules.rules
+		for _, rule := range rules {
+			group := NewRuleGroup()
+			group.Add(&rule)
+			if group.Eval(types.PhaseRequestBody, tx) {
+				return tx.interruption, nil
+			}
+		}
+
+		//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 		return tx.interruption, nil
 	}
 	mime := ""
@@ -992,13 +1001,30 @@ func (tx *Transaction) ProcessRequestBody() (*types.Interruption, error) {
 	rbp = strings.ToLower(rbp)
 	if rbp == "" {
 		// so there is no bodyprocessor, we don't want to generate an error
-		tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+
+		rules := tx.WAF.Rules.rules
+		for _, rule := range rules {
+			group := NewRuleGroup()
+			group.Add(&rule)
+			if group.Eval(types.PhaseRequestBody, tx) {
+				return tx.interruption, nil
+			}
+		}
+		//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 		return tx.interruption, nil
 	}
 	bodyprocessor, err := bodyprocessors.GetBodyProcessor(rbp)
 	if err != nil {
 		tx.generateRequestBodyError(errors.New("invalid body processor"))
-		tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+		rules := tx.WAF.Rules.rules
+		for _, rule := range rules {
+			group := NewRuleGroup()
+			group.Add(&rule)
+			if group.Eval(types.PhaseRequestBody, tx) {
+				return tx.interruption, nil
+			}
+		}
+		//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 		return tx.interruption, nil
 	}
 
@@ -1012,11 +1038,26 @@ func (tx *Transaction) ProcessRequestBody() (*types.Interruption, error) {
 	}); err != nil {
 		tx.debugLogger.Error().Err(err).Msg("Failed to process request body")
 		tx.generateRequestBodyError(err)
-		tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+		rules := tx.WAF.Rules.rules
+		for _, rule := range rules {
+			group := NewRuleGroup()
+			group.Add(&rule)
+			if group.Eval(types.PhaseRequestBody, tx) {
+				return tx.interruption, nil
+			}
+		}
+		//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 		return tx.interruption, nil
 	}
-
-	tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+	rules := tx.WAF.Rules.rules
+	for _, rule := range rules {
+		group := NewRuleGroup()
+		group.Add(&rule)
+		if group.Eval(types.PhaseRequestBody, tx) {
+			return tx.interruption, nil
+		}
+	}
+	//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 	return tx.interruption, nil
 }
 
