@@ -31,7 +31,9 @@ func exampleHandler(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	waf := createWAF()
-
+	tx := waf.NewTransaction()
+	tx.ProcessRequestHeaders()
+	tx.ProcessRequestBody()
 	http.Handle("/", txhttp.WrapHandler(waf, http.HandlerFunc(exampleHandler)))
 
 	fmt.Println("Server is running. Listening port: 8090")

@@ -219,6 +219,10 @@ RulesLoop:
 		r.Evaluate(phase, tx, transformationCache)
 		tx.Capture = false // we reset captures
 		usedRules++
+		if tx.interruption != nil {
+			tx.DebugLogger().Info().Msg(r.Raw())
+			return tx.interruption != nil
+		}
 	}
 	tx.DebugLogger().Debug().
 		Int("phase", int(phase)).

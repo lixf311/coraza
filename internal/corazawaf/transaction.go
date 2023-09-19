@@ -775,16 +775,16 @@ func (tx *Transaction) ProcessRequestHeaders() *types.Interruption {
 		tx.debugLogger.Error().Msg("Calling ProcessRequestHeaders but there is a preexisting interruption")
 		return tx.interruption
 	}
-	rules := tx.WAF.Rules.rules
-	for _, rule := range rules {
-		group := NewRuleGroup()
-		group.Add(&rule)
-		if group.Eval(types.PhaseRequestHeaders, tx) {
-			return tx.interruption
-		}
-	}
+	//rules := tx.WAF.Rules.rules
+	//for _, rule := range rules {
+	//	group := NewRuleGroup()
+	//	group.Add(&rule)
+	//	if group.Eval(types.PhaseRequestHeaders, tx) {
+	//		return tx.interruption
+	//	}
+	//}
 
-	//tx.WAF.Rules.Eval(types.PhaseRequestHeaders, tx)
+	tx.WAF.Rules.Eval(types.PhaseRequestHeaders, tx)
 	return tx.interruption
 }
 
@@ -965,16 +965,16 @@ func (tx *Transaction) ProcessRequestBody() (*types.Interruption, error) {
 
 	// we won't process empty request bodies or disabled RequestBodyAccess
 	if !tx.RequestBodyAccess || tx.requestBodyBuffer.length == 0 {
-		rules := tx.WAF.Rules.rules
-		for _, rule := range rules {
-			group := NewRuleGroup()
-			group.Add(&rule)
-			if group.Eval(types.PhaseRequestBody, tx) {
-				return tx.interruption, nil
-			}
-		}
+		//rules := tx.WAF.Rules.rules
+		//for _, rule := range rules {
+		//	group := NewRuleGroup()
+		//	group.Add(&rule)
+		//	if group.Eval(types.PhaseRequestBody, tx) {
+		//		return tx.interruption, nil
+		//	}
+		//}
 
-		//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+		tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 		return tx.interruption, nil
 	}
 	mime := ""
@@ -1002,29 +1002,29 @@ func (tx *Transaction) ProcessRequestBody() (*types.Interruption, error) {
 	if rbp == "" {
 		// so there is no bodyprocessor, we don't want to generate an error
 
-		rules := tx.WAF.Rules.rules
-		for _, rule := range rules {
-			group := NewRuleGroup()
-			group.Add(&rule)
-			if group.Eval(types.PhaseRequestBody, tx) {
-				return tx.interruption, nil
-			}
-		}
-		//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+		//rules := tx.WAF.Rules.rules
+		//for _, rule := range rules {
+		//	group := NewRuleGroup()
+		//	group.Add(&rule)
+		//	if group.Eval(types.PhaseRequestBody, tx) {
+		//		return tx.interruption, nil
+		//	}
+		//}
+		tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 		return tx.interruption, nil
 	}
 	bodyprocessor, err := bodyprocessors.GetBodyProcessor(rbp)
 	if err != nil {
 		tx.generateRequestBodyError(errors.New("invalid body processor"))
-		rules := tx.WAF.Rules.rules
-		for _, rule := range rules {
-			group := NewRuleGroup()
-			group.Add(&rule)
-			if group.Eval(types.PhaseRequestBody, tx) {
-				return tx.interruption, nil
-			}
-		}
-		//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+		//rules := tx.WAF.Rules.rules
+		//for _, rule := range rules {
+		//	group := NewRuleGroup()
+		//	group.Add(&rule)
+		//	if group.Eval(types.PhaseRequestBody, tx) {
+		//		return tx.interruption, nil
+		//	}
+		//}
+		tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 		return tx.interruption, nil
 	}
 
@@ -1038,26 +1038,26 @@ func (tx *Transaction) ProcessRequestBody() (*types.Interruption, error) {
 	}); err != nil {
 		tx.debugLogger.Error().Err(err).Msg("Failed to process request body")
 		tx.generateRequestBodyError(err)
-		rules := tx.WAF.Rules.rules
-		for _, rule := range rules {
-			group := NewRuleGroup()
-			group.Add(&rule)
-			if group.Eval(types.PhaseRequestBody, tx) {
-				return tx.interruption, nil
-			}
-		}
-		//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+		//rules := tx.WAF.Rules.rules
+		//for _, rule := range rules {
+		//	group := NewRuleGroup()
+		//	group.Add(&rule)
+		//	if group.Eval(types.PhaseRequestBody, tx) {
+		//		return tx.interruption, nil
+		//	}
+		//}
+		tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 		return tx.interruption, nil
 	}
-	rules := tx.WAF.Rules.rules
-	for _, rule := range rules {
-		group := NewRuleGroup()
-		group.Add(&rule)
-		if group.Eval(types.PhaseRequestBody, tx) {
-			return tx.interruption, nil
-		}
-	}
-	//tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
+	//rules := tx.WAF.Rules.rules
+	//for _, rule := range rules {
+	//	group := NewRuleGroup()
+	//	group.Add(&rule)
+	//	if group.Eval(types.PhaseRequestBody, tx) {
+	//		return tx.interruption, nil
+	//	}
+	//}
+	tx.WAF.Rules.Eval(types.PhaseRequestBody, tx)
 	return tx.interruption, nil
 }
 
